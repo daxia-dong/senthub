@@ -172,6 +172,7 @@ export default function LandingPage() {
             <span>© 2026 SENTHUB. Free &amp; Open Source.</span>
             <div className="flex gap-6">
               <a href="https://github.com/daxia-dong/senthub" target="_blank" rel="noopener noreferrer" className="hover:text-gray-700 dark:hover:text-gray-300">GitHub</a>
+              <Link href="/blog" className="hover:text-gray-700 dark:hover:text-gray-300">Blog</Link>
               <Link href="/app" className="hover:text-gray-700 dark:hover:text-gray-300">App</Link>
             </div>
           </div>
