@@ -1,11 +1,12 @@
 "use client";
 
-import { useState, useCallback, useRef } from "react";
+import { useState, useCallback, useRef, useEffect } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import rehypeHighlight from "rehype-highlight";
-import { Copy, Check, Download, Eye, Edit3, FileText, Share2, RotateCcw, Sun, Moon } from "lucide-react";
+import { Copy, Check, Download, Eye, Edit3, FileText, RotateCcw, Sun, Moon } from "lucide-react";
 
+const SAVE_KEY = "senthub-draft";
 const DEFAULT_MARKDOWN = `# Welcome to SENTHUB 🦐
 
 Start typing your Markdown here. The preview updates in real-time.
@@ -49,15 +50,53 @@ Edit this text to see how it looks in the preview panel!
 `;
 
 export default function AppPage() {
-  const [markdown, setMarkdown] = useState(DEFAULT_MARKDOWN);
+  const [markdown, setMarkdown] = useState("");
+  const [loaded, setLoaded] = useState(false);
   const [activeTab, setActiveTab] = useState<"edit" | "preview">("edit");
   const [copied, setCopied] = useState(false);
   const [darkMode, setDarkMode] = useState(false);
   const previewRef = useRef<HTMLDivElement>(null);
+  const saveTimer = useRef<ReturnType<typeof setTimeout>>();
+
+  // Load saved draft on mount
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem(SAVE_KEY);
+      setMarkdown(saved || DEFAULT_MARKDOWN);
+    } catch {
+      setMarkdown(DEFAULT_MARKDOWN);
+    }
+    setLoaded(true);
+  }, []);
+
+  // Auto-save to localStorage with debounce
+  const handleChange = useCallback((e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const val = e.target.value;
+    setMarkdown(val);
+    if (saveTimer.current) clearTimeout(saveTimer.current);
+    saveTimer.current = setTimeout(() => {
+      try { localStorage.setItem(SAVE_KEY, val); } catch {}
+    }, 500);
+  }, []);
+
+  // Restore dark mode preference
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem("senthub-theme");
+      if (saved === "dark") {
+        setDarkMode(true);
+        document.documentElement.classList.add("dark");
+      }
+    } catch {}
+  }, []);
 
   const toggleDark = useCallback(() => {
-    setDarkMode((d) => !d);
-    document.documentElement.classList.toggle("dark");
+    setDarkMode((d) => {
+      const next = !d;
+      document.documentElement.classList.toggle("dark");
+      try { localStorage.setItem("senthub-theme", next ? "dark" : "light"); } catch {}
+      return next;
+    });
   }, []);
 
   const handleCopy = useCallback(async () => {
@@ -68,6 +107,7 @@ export default function AppPage() {
 
   const handleReset = useCallback(() => {
     setMarkdown(DEFAULT_MARKDOWN);
+    try { localStorage.setItem(SAVE_KEY, DEFAULT_MARKDOWN); } catch {}
   }, []);
 
   const handleExportPDF = useCallback(() => {
@@ -127,6 +167,9 @@ export default function AppPage() {
     }
     URL.revokeObjectURL(url);
   }, []);
+
+  // Don't render until loaded to prevent flash
+  if (!loaded) return null;
 
   return (
     <div className={darkMode ? "dark" : ""}>
@@ -204,7 +247,7 @@ export default function AppPage() {
                 </div>
                 <textarea
                   value={markdown}
-                  onChange={(e) => setMarkdown(e.target.value)}
+                  onChange={handleChange}
                   className="flex-1 w-full resize-none bg-transparent p-4 font-mono text-sm leading-relaxed text-slate-800 dark:text-slate-200 placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none"
                   spellCheck={false}
                   placeholder="Type your Markdown here..."
