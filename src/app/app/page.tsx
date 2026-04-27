@@ -231,6 +231,15 @@ export default function AppPage() {
                 <Download className="w-4 h-4" />
                 Export PDF
               </button>
+              <a
+                href="https://paypal.me/donghao368"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-300 hover:bg-blue-100 dark:hover:bg-blue-900/50 transition-colors"
+                title="Support SENTHUB"
+              >
+                ☕ Donate
+              </a>
             </div>
           </div>
         </div>

@@ -69,6 +69,18 @@ export default function LandingPage() {
               ⭐ Star on GitHub
             </a>
           </div>
+          
+          {/* Support Section */}
+          <div className="mt-8 flex flex-wrap justify-center gap-4">
+            <a
+              href="https://paypal.me/donghao368"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-blue-500 hover:bg-blue-600 text-white text-sm font-medium transition-colors shadow-md"
+            >
+              ☕ Support SENTHUB
+            </a>
+          </div>
         </section>
 
         {/* Features */}
@@ -174,6 +186,7 @@ export default function LandingPage() {
               <a href="https://github.com/daxia-dong/senthub" target="_blank" rel="noopener noreferrer" className="hover:text-gray-700 dark:hover:text-gray-300">GitHub</a>
               <Link href="/blog" className="hover:text-gray-700 dark:hover:text-gray-300">Blog</Link>
               <Link href="/app" className="hover:text-gray-700 dark:hover:text-gray-300">App</Link>
+              <a href="https://paypal.me/donghao368" target="_blank" rel="noopener noreferrer" className="hover:text-blue-500 dark:hover:text-blue-400 font-medium">Donate</a>
             </div>
           </div>
         </footer>
