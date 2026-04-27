@@ -1,36 +1,109 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# SENTHUB
 
-## Getting Started
+> Markdown to PDF converter with beautiful Chinese typography support 🦐
 
-First, run the development server:
+**SENTHUB** is a free, modern web application for converting Markdown content to beautifully formatted PDFs. Built with Next.js 15 and designed with developer workflows in mind — write, preview, and export in one fluid experience.
+
+![SENTHUB Screenshot](https://senthub.vercel.app/og-image.png)
+
+## ✨ Features
+
+- **📝 Live Markdown Editor** — Write in a distraction-free editor with real-time preview
+- **🎨 Beautiful Chinese Typography** — Native support for CJK text, proper line breaks, and elegant type rendering
+- **📄 PDF Export** — One-click PDF download with print-optimized styling
+- **🌙 Dark Mode** — Light and dark themes for comfortable editing day or night
+- **⚡ Blazing Fast** — Built on Next.js 15 with App Router for instant page loads
+- **🔒 100% Client-Side** — Your content never leaves your browser. No data uploads, no servers involved
+- **🚫 No Login Required** — Just open and use. Zero friction
+
+## 🚀 Try It Now
+
+👉 **[senthub.vercel.app](https://senthub.vercel.app)**
+
+No signup, no installation — just paste your Markdown and export.
+
+## 🎯 Why SENTHUB?
+
+Most Markdown-to-PDF tools fall into two camps:
+- **Too simple:** Basic conversion with ugly output
+- **Too complex:** CLI tools like Pandoc that require installation
+
+SENTHUB sits in the sweet spot — **a web-based tool that just works**, with beautiful output tailored for both Latin and CJK text.
+
+Perfect for:
+- Developers writing documentation
+- Students formatting essays with Chinese text
+- Writers exporting drafts for review
+- Anyone who needs a quick, beautiful PDF from Markdown
+
+## 🛠️ Tech Stack
+
+| Layer | Technology |
+|-------|-----------|
+| Framework | Next.js 15 (App Router) |
+| Language | TypeScript |
+| Styling | Tailwind CSS 4 |
+| Markdown | react-markdown + rehype/remark plugins |
+| PDF | Browser print-to-PDF with optimized styles |
+| Deployment | Vercel (Edge-ready) |
+
+## 🏗️ Local Development
 
 ```bash
+# Clone the repo
+git clone https://github.com/daxia-dong/senthub.git
+cd senthub
+
+# Install dependencies
+npm install
+
+# Start development server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+
+# Build for production
+npm run build
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 📦 Project Structure
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
+senthub/
+├── src/
+│   ├── app/
+│   │   ├── page.tsx          # Landing page
+│   │   ├── app/page.tsx      # Editor application
+│   │   ├── layout.tsx        # Root layout
+│   │   └── globals.css       # Global styles
+│   └── ...
+├── public/                   # Static assets
+├── next.config.ts            # Next.js configuration
+├── tailwind.config.ts        # Tailwind configuration
+└── package.json
+```
 
-## Learn More
+## 🤝 Contributing
 
-To learn more about Next.js, take a look at the following resources:
+Contributions are welcome! This is an open-source project — feel free to:
+1. Fork the repository
+2. Create a feature branch
+3. Submit a Pull Request
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Or just [open an issue](https://github.com/daxia-dong/senthub/issues) if you have ideas or find bugs.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 📋 Roadmap
 
-## Deploy on Vercel
+- [ ] Custom PDF themes / templates
+- [ ] Batch conversion (multiple files)
+- [ ] API endpoint for programmatic conversion
+- [ ] Cloud sync (GitHub Gist / Dropbox)
+- [ ] Browser extension
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 📄 License
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+MIT — free to use, modify, and distribute.
+
+---
+
+**Made with 🦐 by [@daxia-dong](https://github.com/daxia-dong)**

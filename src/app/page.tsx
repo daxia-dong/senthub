@@ -1,119 +1,182 @@
-import Link from "next/link";
+'use client';
 
-export default function Home() {
+import Link from 'next/link';
+import { useState, useEffect } from 'react';
+
+export default function LandingPage() {
+  const [dark, setDark] = useState(false);
+
+  useEffect(() => {
+    const mq = window.matchMedia('(prefers-color-scheme: dark)');
+    setDark(mq.matches);
+    const handler = (e: MediaQueryListEvent) => setDark(e.matches);
+    mq.addEventListener('change', handler);
+    return () => mq.removeEventListener('change', handler);
+  }, []);
+
+  const toggleDark = () => setDark(!dark);
+
   return (
-    <div>
-      {/* Hero section */}
-      <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-20 text-center">
-        <div className="inline-flex items-center gap-2 px-3 py-1 bg-emerald-50 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300 rounded-full text-sm font-medium mb-8">
-          <span className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse" />
-          Free to use · No signup required
-        </div>
-        <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-slate-900 dark:text-white leading-tight tracking-tight">
-          Markdown to PDF.
-          <br />
-          <span className="bg-gradient-to-r from-emerald-500 to-emerald-700 bg-clip-text text-transparent">
-            Beautiful. Simple. Fast.
-          </span>
-        </h1>
-        <p className="mt-6 text-lg sm:text-xl text-slate-600 dark:text-slate-300 max-w-2xl mx-auto">
-          Write in Markdown, export gorgeous PDFs. SENTHUB handles the formatting
-          so you can focus on what matters — your content.
-        </p>
-        <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
-          <Link
-            href="/app"
-            className="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white px-8 py-3.5 rounded-xl text-lg font-semibold transition-all shadow-lg shadow-emerald-200 dark:shadow-emerald-900/30"
-          >
-            Start Writing
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-            </svg>
-          </Link>
-          <Link
-            href="#features"
-            className="inline-flex items-center gap-2 text-slate-700 dark:text-slate-300 bg-white dark:bg-slate-800 px-8 py-3.5 rounded-xl text-lg font-medium border border-slate-200 dark:border-slate-700 hover:border-emerald-300 dark:hover:border-emerald-600 transition-all"
-          >
-            Learn More
-          </Link>
-        </div>
-      </section>
-
-      {/* Features */}
-      <section id="features" className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-        <h2 className="text-3xl font-bold text-center text-slate-900 dark:text-white mb-16">
-          Why SENTHUB?
-        </h2>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {[
-            {
-              icon: "✍️",
-              title: "Write in Markdown",
-              desc: "Simple, distraction-free editing with live preview. No complex formatting tools needed.",
-            },
-            {
-              icon: "📄",
-              title: "Export Clean PDFs",
-              desc: "One click to export beautiful, print-ready PDFs with proper typography and layout.",
-            },
-            {
-              icon: "🌏",
-              title: "Chinese Typography",
-              desc: "Full CJK support out of the box. Proper spacing, fonts, and handling for Chinese text.",
-            },
-            {
-              icon: "🎨",
-              title: "Custom Templates",
-              desc: "Choose from multiple themes or customize with your own CSS. Coming soon.",
-            },
-            {
-              icon: "🔗",
-              title: "Shareable Links",
-              desc: "Generate a unique link to share your document with anyone. No account needed.",
-            },
-            {
-              icon: "💰",
-              title: "Free to Start",
-              desc: "All core features are free. Premium plans for power users coming later.",
-            },
-          ].map((f, i) => (
-            <div
-              key={i}
-              className="bg-white dark:bg-slate-800/50 rounded-2xl p-6 border border-slate-200 dark:border-slate-700 hover:border-emerald-200 dark:hover:border-emerald-700 transition-all"
-            >
-              <div className="text-3xl mb-4">{f.icon}</div>
-              <h3 className="text-lg font-semibold text-slate-900 dark:text-white mb-2">{f.title}</h3>
-              <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">{f.desc}</p>
+    <div className={dark ? 'dark' : ''}>
+      <div className="min-h-screen bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100 transition-colors">
+        {/* Nav */}
+        <header className="sticky top-0 z-50 bg-white/80 dark:bg-gray-950/80 backdrop-blur-sm border-b border-gray-200 dark:border-gray-800">
+          <div className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
+            <span className="text-xl font-bold tracking-tight">SENTHUB</span>
+            <div className="flex items-center gap-4">
+              <Link
+                href="/app"
+                className="px-4 py-2 rounded-lg bg-gray-900 dark:bg-white text-white dark:text-gray-900 text-sm font-medium hover:opacity-90 transition-opacity"
+              >
+                Open App
+              </Link>
+              <button
+                onClick={toggleDark}
+                className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                aria-label="Toggle theme"
+              >
+                {dark ? '☀️' : '🌙'}
+              </button>
             </div>
-          ))}
-        </div>
-      </section>
+          </div>
+        </header>
 
-      {/* CTA */}
-      <section className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pb-24 text-center">
-        <div className="bg-gradient-to-r from-emerald-50 to-teal-50 dark:from-emerald-900/20 dark:to-teal-900/20 rounded-3xl p-12 border border-emerald-100 dark:border-emerald-800/30">
-          <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-4">
-            Ready to start writing?
-          </h2>
-          <p className="text-slate-600 dark:text-slate-300 mb-8 max-w-lg mx-auto">
-            No signup. No credit card. Just open the editor and start typing.
+        {/* Hero */}
+        <section className="max-w-6xl mx-auto px-4 pt-24 pb-16 text-center">
+          <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-6">
+            Markdown to PDF.{' '}
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">
+              Beautifully.
+            </span>
+          </h1>
+          <p className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto mb-10 leading-relaxed">
+            Write Markdown, see live preview, export stunning PDFs. 
+            Built for developers who care about typography — with native Chinese and CJK support.
           </p>
-          <Link
-            href="/app"
-            className="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white px-8 py-3.5 rounded-xl text-lg font-semibold transition-all"
-          >
-            Open SENTHUB Editor
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-            </svg>
-          </Link>
-        </div>
-      </section>
+          <div className="flex flex-wrap justify-center gap-4">
+            <Link
+              href="/app"
+              className="px-8 py-4 rounded-xl bg-gray-900 dark:bg-white text-white dark:text-gray-900 text-lg font-semibold hover:opacity-90 transition-opacity shadow-lg"
+            >
+              Start Writing Free →
+            </Link>
+            <a
+              href="https://github.com/daxia-dong/senthub"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-8 py-4 rounded-xl border border-gray-300 dark:border-gray-700 text-lg font-semibold hover:bg-gray-50 dark:hover:bg-gray-900 transition-colors"
+            >
+              ⭐ Star on GitHub
+            </a>
+          </div>
+        </section>
 
-      {/* Footer */}
-      <footer className="border-t border-slate-200 dark:border-slate-800 py-8 text-center text-sm text-slate-500 dark:text-slate-400">
-        <p>&copy; {new Date().getFullYear()} SENTHUB. Built by the Senthub Team.</p>
-      </footer>
+        {/* Features */}
+        <section className="max-w-6xl mx-auto px-4 py-20">
+          <div className="grid md:grid-cols-3 gap-8">
+            <div className="p-6 rounded-2xl border border-gray-200 dark:border-gray-800">
+              <div className="text-3xl mb-4">✍️</div>
+              <h3 className="text-xl font-semibold mb-2">Live Preview</h3>
+              <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
+                Edit Markdown on the left, see the formatted result on the right. Instant feedback as you type.
+              </p>
+            </div>
+            <div className="p-6 rounded-2xl border border-gray-200 dark:border-gray-800">
+              <div className="text-3xl mb-4">🀄</div>
+              <h3 className="text-xl font-semibold mb-2">Chinese Typography</h3>
+              <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
+                Proper CJK text rendering with correct line breaks, punctuation handling, and elegant font pairing.
+              </p>
+            </div>
+            <div className="p-6 rounded-2xl border border-gray-200 dark:border-gray-800">
+              <div className="text-3xl mb-4">📄</div>
+              <h3 className="text-xl font-semibold mb-2">PDF Export</h3>
+              <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
+                Export to PDF with one click. Print-optimized styling that looks great on paper and screen.
+              </p>
+            </div>
+            <div className="p-6 rounded-2xl border border-gray-200 dark:border-gray-800">
+              <div className="text-3xl mb-4">🌙</div>
+              <h3 className="text-xl font-semibold mb-2">Dark Mode</h3>
+              <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
+                Light and dark themes that follow your system preference. Comfortable editing at any hour.
+              </p>
+            </div>
+            <div className="p-6 rounded-2xl border border-gray-200 dark:border-gray-800">
+              <div className="text-3xl mb-4">🔒</div>
+              <h3 className="text-xl font-semibold mb-2">100% Client Side</h3>
+              <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
+                Your content never leaves your browser. No server uploads, no accounts needed, total privacy.
+              </p>
+            </div>
+            <div className="p-6 rounded-2xl border border-gray-200 dark:border-gray-800">
+              <div className="text-3xl mb-4">⚡</div>
+              <h3 className="text-xl font-semibold mb-2">Blazing Fast</h3>
+              <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
+                Built on Next.js 15. Instant page loads and edge-ready deployment via Vercel.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* How it works */}
+        <section className="bg-gray-50 dark:bg-gray-900 py-20">
+          <div className="max-w-6xl mx-auto px-4 text-center">
+            <h2 className="text-3xl font-bold mb-12">How It Works</h2>
+            <div className="grid md:grid-cols-3 gap-8">
+              <div>
+                <div className="w-12 h-12 rounded-full bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-300 flex items-center justify-center text-xl font-bold mx-auto mb-4">1</div>
+                <h3 className="text-lg font-semibold mb-2">Write Markdown</h3>
+                <p className="text-gray-600 dark:text-gray-400">Type or paste your Markdown content in the editor panel.</p>
+              </div>
+              <div>
+                <div className="w-12 h-12 rounded-full bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-300 flex items-center justify-center text-xl font-bold mx-auto mb-4">2</div>
+                <h3 className="text-lg font-semibold mb-2">Preview in Real Time</h3>
+                <p className="text-gray-600 dark:text-gray-400">Watch the formatted output update instantly as you type.</p>
+              </div>
+              <div>
+                <div className="w-12 h-12 rounded-full bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-300 flex items-center justify-center text-xl font-bold mx-auto mb-4">3</div>
+                <h3 className="text-lg font-semibold mb-2">Export to PDF</h3>
+                <p className="text-gray-600 dark:text-gray-400">Click export and download your beautifully formatted PDF file.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* SEO Content */}
+        <section className="max-w-4xl mx-auto px-4 py-20 text-gray-600 dark:text-gray-400">
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6 text-center">
+            The Best Free Online Markdown to PDF Converter
+          </h2>
+          <div className="space-y-4 text-base leading-relaxed">
+            <p>
+              SENTHUB is a free, open-source Markdown to PDF converter that runs entirely in your browser. 
+              Unlike other tools that require uploading your content to a server, SENTHUB processes everything 
+              client-side — your text never leaves your device.
+            </p>
+            <p>
+              With native support for Chinese and CJK typography, SENTHUB handles East Asian text correctly, 
+              producing professional-looking PDFs with proper line breaks, punctuation, and font rendering. 
+              This makes it ideal for students, academics, and professionals working with mixed-language documents.
+            </p>
+            <p>
+              Whether you&apos;re a developer writing documentation, a student formatting an essay, or a writer 
+              preparing a manuscript, SENTHUB provides a clean, fast, and private way to convert Markdown to PDF.
+            </p>
+          </div>
+        </section>
+
+        {/* Footer */}
+        <footer className="border-t border-gray-200 dark:border-gray-800 py-8">
+          <div className="max-w-6xl mx-auto px-4 flex flex-wrap justify-between items-center text-sm text-gray-500">
+            <span>© 2026 SENTHUB. Free &amp; Open Source.</span>
+            <div className="flex gap-6">
+              <a href="https://github.com/daxia-dong/senthub" target="_blank" rel="noopener noreferrer" className="hover:text-gray-700 dark:hover:text-gray-300">GitHub</a>
+              <Link href="/app" className="hover:text-gray-700 dark:hover:text-gray-300">App</Link>
+            </div>
+          </div>
+        </footer>
+      </div>
     </div>
   );
 }
