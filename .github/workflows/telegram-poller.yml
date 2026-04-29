@@ -1,0 +1,15 @@
+name: Telegram Bot Poller
+
+on:
+  schedule:
+    - cron: '*/5 * * * *'
+  workflow_dispatch:
+
+jobs:
+  poll:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          curl -s "https://senthub.vercel.app/api/telegram" \
+            --connect-timeout 15 --max-time 20
+        continue-on-error: true
