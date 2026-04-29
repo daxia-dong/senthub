@@ -92,6 +92,16 @@ Contributions are welcome! This is an open-source project — feel free to:
 
 Or just [open an issue](https://github.com/daxia-dong/senthub/issues) if you have ideas or find bugs.
 
+## 💬 Feedback
+
+We'd love to hear from you! Here are all the ways to reach us:
+
+- **🐛 Report a Bug:** [Open a Bug Report](https://github.com/daxia-dong/senthub/issues/new?template=bug_report.md)
+- **💡 Suggest a Feature:** [Open a Feature Request](https://github.com/daxia-dong/senthub/issues/new?template=feature_request.md)
+- **📧 Email:** [senthub@outlook.com](mailto:senthub@outlook.com)
+- **💬 Discussions:** [GitHub Discussions](https://github.com/daxia-dong/senthub/discussions)
+- **🌐 Feedback Page:** [senthub.vercel.app/feedback](https://senthub.vercel.app/feedback)
+
 ## 📋 Roadmap
 
 - [ ] Custom PDF themes / templates
